@@ -10,8 +10,8 @@ import (
 
 	"github.com/gin-gonic/gin"
 	// _ "github.com/go-sql-driver/mysql"
-	"github.com/lib/pq"
-	"github.com/spf13/viper"
+	_"github.com/lib/pq"
+	// "github.com/spf13/viper"
 )
 
 const MODE = "release"
@@ -33,16 +33,21 @@ func ConnectDB() (*sql.DB, error) {
 	// DB_PORT := get("DB_PORT")
 	// DB_NAME := get("DB_NAME")
 	// DB_LOC := get("DB_LOC")
-	DB_USER := viper.GetString("database.DB_USER")
-	DB_PASS := viper.GetString("database.DB_PASS")
-	DB_HOST := viper.GetString("database.DB_HOST")
-	DB_PORT := viper.GetString("database.DB_PORT")
-	DB_NAME := viper.GetString("database.DB_NAME")
+	// DB_USER := viper.GetString("database.DB_USER")
+	// DB_PASS := viper.GetString("database.DB_PASS")
+	// DB_HOST := viper.GetString("database.DB_HOST")
+	// DB_PORT := viper.GetString("database.DB_PORT")
+	// DB_NAME := viper.GetString("database.DB_NAME")
+	DB_USER := os.Getenv("DB_USER")
+	DB_PASS := os.Getenv("DB_PASS")
+	DB_HOST := os.Getenv("DB_HOST")
+	DB_PORT := os.Getenv("DB_PORT")
+	DB_NAME := os.Getenv("DB_NAME")
 	// DB_LOC := viper.GetString("database.DB_LOC")
 	//String format untuk koneksi
-	// connection := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s", DB_USER, DB_PASS, DB_HOST, DB_PORT, DB_NAME)
-	url := fmt.Sprintf("host=%s user=%s password=%s dbname=%s port=%v sslmode=require", DB_HOST, DB_USER, DB_PASS, DB_NAME, DB_PORT)
-	connection, _ := pq.ParseURL(url)
+	// connection := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s", DB_USER, DB_PASS, DB_HOST, DB_PORT, DB_NAME),
+	connection := fmt.Sprintf("host=%s user=%s password=%s dbname=%s port=%s sslmode=disable", DB_HOST, DB_USER, DB_PASS, DB_NAME, DB_PORT)
+	// connection := fmt.Sprintf("host=localhost user=vergi password=shaolinsocer dbname=enigma_toko port=5432 sslmode=disable")
 	// val := url.Values{}
 	// // menambahkan value location
 	// val.Add("loc", DB_LOC)
@@ -94,6 +99,6 @@ func (server *Server) InitializeRoutes()  {
 
 func Run(r *gin.Engine) error {
 	fmt.Println("Listening to port 8801")
-	err := r.Run(":8801")
+	err := r.Run(":8001")
 	return err
 }
