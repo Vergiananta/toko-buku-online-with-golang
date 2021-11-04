@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"log"
 	"main/controllers"
-	"net/url"
+	// "net/url"
 	"os"
 
 	"github.com/gin-gonic/gin"
@@ -38,16 +38,16 @@ func ConnectDB() (*sql.DB, error) {
 	DB_HOST := viper.GetString("database.DB_HOST")
 	DB_PORT := viper.GetString("database.DB_PORT")
 	DB_NAME := viper.GetString("database.DB_NAME")
-	DB_LOC := viper.GetString("database.DB_LOC")
+	// DB_LOC := viper.GetString("database.DB_LOC")
 	//String format untuk koneksi
 	connection := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s", DB_USER, DB_PASS, DB_HOST, DB_PORT, DB_NAME)
-	val := url.Values{}
-	// menambahkan value location
-	val.Add("loc", DB_LOC)
-	dsn := fmt.Sprintf("%s?%s", connection, val.Encode())
+	// val := url.Values{}
+	// // menambahkan value location
+	// val.Add("loc", DB_LOC)
+	// dsn := fmt.Sprintf("%s?%s", connection, val.Encode())
 	// Buka koneksi database
 	// db, err := sql.Open(`mysql`, dsn)
-	db, err := sql.Open("postgres", dsn)
+	db, err := sql.Open("postgres", connection)
 	if err != nil {
 		log.Fatal(err)
 	}
