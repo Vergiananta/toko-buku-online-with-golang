@@ -41,7 +41,7 @@ func ConnectDB() (*sql.DB, error) {
 	// DB_LOC := viper.GetString("database.DB_LOC")
 	//String format untuk koneksi
 	// connection := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s", DB_USER, DB_PASS, DB_HOST, DB_PORT, DB_NAME)
-	url := fmt.Sprintf("host=%s user=%s password=%s dbname=%s port=%v sslmode=disable", DB_HOST, DB_USER, DB_PASS, DB_NAME, DB_PORT)
+	url := fmt.Sprintf("host=%s user=%s password=%s dbname=%s port=%v sslmode=require", DB_HOST, DB_USER, DB_PASS, DB_NAME, DB_PORT)
 	connection, _ := pq.ParseURL(url)
 	// val := url.Values{}
 	// // menambahkan value location
