@@ -35,20 +35,20 @@ func ConnectDB() (*sql.DB, error) {
 	// DB_LOC := get("DB_LOC")
 	DB_USER := viper.GetString("database.DB_USER")
 	DB_PASS := viper.GetString("database.DB_PASS")
-	DB_HOST := viper.GetString("database.DB_HOST")
-	DB_PORT := viper.GetString("database.DB_PORT")
+	// DB_HOST := viper.GetString("database.DB_HOST")
+	// DB_PORT := viper.GetString("database.DB_PORT")
 	DB_NAME := viper.GetString("database.DB_NAME")
 	// DB_LOC := viper.GetString("database.DB_LOC")
 	//String format untuk koneksi
-	connection := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s", DB_USER, DB_PASS, DB_HOST, DB_PORT, DB_NAME)
-	// connection := fmt.Sprintf("user=%s host=%s port=%s" + "password=%s dbname=%s sslmode=disable", DB_USER, DB_HOST, DB_PORT, DB_PASS, DB_NAME)
-	val := url.Values{}
+	// connection := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s", DB_USER, DB_PASS, DB_HOST, DB_PORT, DB_NAME)
+	connection := fmt.Sprintf("user=%s password=%s dbname=%s sslmode=disable", DB_USER, DB_PASS, DB_NAME)
+	// val := url.Values{}
 	// // menambahkan value location
 	// val.Add("loc", DB_LOC)
-	dsn := fmt.Sprintf("%s?%s", connection, val.Encode())
+	// dsn := fmt.Sprintf("%s?%s", connection, val.Encode())
 	// Buka koneksi database
 	// db, err := sql.Open(`mysql`, dsn)
-	db, err := sql.Open("postgres", dsn)
+	db, err := sql.Open("postgres", connection)
 	if err != nil {
 		log.Fatal(err)
 	}
