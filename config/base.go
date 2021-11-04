@@ -9,7 +9,7 @@ import (
 	"os"
 
 	"github.com/gin-gonic/gin"
-	_ "github.com/go-sql-driver/mysql"
+	// _ "github.com/go-sql-driver/mysql"
 	"github.com/spf13/viper"
 )
 
@@ -45,7 +45,8 @@ func ConnectDB() (*sql.DB, error) {
 	val.Add("loc", DB_LOC)
 	dsn := fmt.Sprintf("%s?%s", connection, val.Encode())
 	// Buka koneksi database
-	db, err := sql.Open(`mysql`, dsn)
+	// db, err := sql.Open(`mysql`, dsn)
+	db, err := sql.Open(`pq`, dsn)
 	if err != nil {
 		log.Fatal(err)
 	}
