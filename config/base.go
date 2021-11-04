@@ -48,7 +48,7 @@ func ConnectDB() (*sql.DB, error) {
 	// dsn := fmt.Sprintf("%s?%s", connection, val.Encode())
 	// Buka koneksi database
 	// db, err := sql.Open(`mysql`, dsn)
-	db, err := sql.Open("postgres", connection)
+	db, err := sql.Open("pq", connection)
 	if err != nil {
 		log.Fatal(err)
 	}
