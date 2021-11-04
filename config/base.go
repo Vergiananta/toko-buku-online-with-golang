@@ -10,7 +10,6 @@ import (
 
 	"github.com/gin-gonic/gin"
 	// _ "github.com/go-sql-driver/mysql"
-	_ "github.com/lib/pq"
 	"github.com/spf13/viper"
 )
 
@@ -47,7 +46,7 @@ func ConnectDB() (*sql.DB, error) {
 	dsn := fmt.Sprintf("%s?%s", connection, val.Encode())
 	// Buka koneksi database
 	// db, err := sql.Open(`mysql`, dsn)
-	db, err := sql.Open(`pq`, dsn)
+	db, err := sql.Open("postgres", dsn)
 	if err != nil {
 		log.Fatal(err)
 	}
