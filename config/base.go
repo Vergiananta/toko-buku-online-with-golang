@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"log"
 	"main/controllers"
-	// "net/url"
+	"net/url"
 	"os"
 
 	"github.com/gin-gonic/gin"
@@ -40,15 +40,15 @@ func ConnectDB() (*sql.DB, error) {
 	DB_NAME := viper.GetString("database.DB_NAME")
 	// DB_LOC := viper.GetString("database.DB_LOC")
 	//String format untuk koneksi
-	// connection := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s", DB_USER, DB_PASS, DB_HOST, DB_PORT, DB_NAME)
-	connection := fmt.Sprintf("user=%s host=%s port=%s" + "password=%s dbname=%s sslmode=disable", DB_USER, DB_HOST, DB_PORT, DB_PASS, DB_NAME)
-	// val := url.Values{}
+	connection := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s", DB_USER, DB_PASS, DB_HOST, DB_PORT, DB_NAME)
+	// connection := fmt.Sprintf("user=%s host=%s port=%s" + "password=%s dbname=%s sslmode=disable", DB_USER, DB_HOST, DB_PORT, DB_PASS, DB_NAME)
+	val := url.Values{}
 	// // menambahkan value location
 	// val.Add("loc", DB_LOC)
-	// dsn := fmt.Sprintf("%s?%s", connection, val.Encode())
+	dsn := fmt.Sprintf("%s?%s", connection, val.Encode())
 	// Buka koneksi database
 	// db, err := sql.Open(`mysql`, dsn)
-	db, err := sql.Open("postgres", connection)
+	db, err := sql.Open("postgres", dsn)
 	if err != nil {
 		log.Fatal(err)
 	}
